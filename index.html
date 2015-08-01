@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <meta charset="utf-8">
+    <title>Map Testing</title>
+<style>
+
+/* CSS goes here. */
+
+    .prov{
+        fill:#ccc;
+    }
+
+
+</style>
+<body>
+<script type="text/javascript" src="d3/d3.v3.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script type="text/javascript">
+
+/* JavaScript goes here. */
+    
+    var width = 960; 
+        height = 500;
+
+    var svg = d3.select("body").append("svg").attr("width", width).attr("height",height);
+
+
+   //  svg.selectAll("rect")
+   // .data(dataset)
+   // .enter()
+   // .append("rect")
+   // .attr("x", function(d,i){return i * 21;})
+   // .attr("y", 0)
+   // .attr("width", 20)
+   // .attr("height", 100);
+
+    d3.json("/provinces.geojson", function(error, provinces) {
+        if (error) return console.error(error);
+
+        svg.append("g").selectAll(".province").data(provinces.features).enter().append("path").attr("class","province").attr('d', d3.geo.path().projection(d3.geo.mercator().scale(1000).translate([width/2, height/2])));
+        // g.selectAll("path")
+        //     .data(provinces.features)
+        //     .enter()
+        //     .append("path")
+        //     .attr("d", path)
+        //     .attr("class", "prov")
+
+
+
+});
+</script>
